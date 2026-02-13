@@ -121,16 +121,10 @@ export function useGame() {
       setLastPlayedCards(prev => ({ ...prev, computer: [] }));
       setMessage('电脑不出');
       
-      // 检查玩家是否也要不出
-      if (lastCards.length > 0) {
-        setCurrentPlayer('player');
-        setMessage('你的回合');
-      } else {
-        // 重新开始出牌轮
-        setCurrentPlayer('player');
-        setLastPlayedCards({ player: [], computer: [] });
-        setMessage('你的回合');
-      }
+      // 电脑不出，玩家可以重新出牌（上一轮作废）
+      setLastPlayedCards({ player: [], computer: [] });
+      setCurrentPlayer('player');
+      setMessage('你的回合，重新出牌');
       return;
     }
     
