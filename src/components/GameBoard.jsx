@@ -6,26 +6,33 @@ import BidButtons from './BidButtons';
 import GameInfo from './GameInfo';
 import BottomCards from './BottomCards';
 import StartButton from './StartButton';
+import PokerCard from './PokerCard';
 import { getCardType } from '../logic/gameRules';
 
-export default function GameBoard({ gameState, message, currentPlayer, landlord, bidScore, winner, roundScores }) {
-  const {
-    playerHand,
-    computerHand,
-    bottomCards,
-    lastPlayedCards,
-    selectedCards,
-    scores,
-    biddingHistory,
-    initGame,
-    playerBid,
-    playerPlayCards,
-    playerPass,
-    toggleCardSelection,
-    selectAllCards,
-    deselectAllCards,
-    getRemainingCards
-  } = gameState;
+export default function GameBoard({ 
+  gameState, 
+  message, 
+  currentPlayer, 
+  landlord, 
+  bidScore, 
+  winner, 
+  roundScores,
+  playerHand,
+  computerHand,
+  bottomCards,
+  lastPlayedCards,
+  selectedCards,
+  scores,
+  biddingHistory,
+  initGame,
+  playerBid,
+  playerPlayCards,
+  playerPass,
+  toggleCardSelection,
+  selectAllCards,
+  deselectAllCards,
+  getRemainingCards
+}) {
 
   // 判断是否可以出牌
   const canPlay = selectedCards.length > 0 && 
@@ -203,6 +210,3 @@ export default function GameBoard({ gameState, message, currentPlayer, landlord,
     </div>
   );
 }
-
-// 引入PokerCard用于中间显示
-import PokerCard from './PokerCard';
