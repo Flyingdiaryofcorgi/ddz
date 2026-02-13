@@ -28,7 +28,7 @@ export function useGame() {
     setComputerHand(sortCards(player2));
     setBottomCards(bottomCards);
     setLandlord(null);
-    setCurrentPlayer(null);
+    setCurrentPlayer('player'); // 玩家先叫地主
     setLastPlayedCards({ player: [], computer: [] });
     setSelectedCards([]);
     setBidScore(0);
@@ -36,7 +36,7 @@ export function useGame() {
     setWinner(null);
     setBiddingHistory([]);
     setGameState('bidding');
-    setMessage('叫地主阶段开始！');
+    setMessage('叫地主阶段开始！请选择叫分');
   }, []);
 
   // 玩家叫地主
