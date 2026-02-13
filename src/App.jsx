@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="min-h-screen">
       <GameBoard 
-        gameState={gameState.gameState}
+        gameState={gameState}
         message={gameState.message}
         currentPlayer={gameState.currentPlayer}
         landlord={gameState.landlord}
