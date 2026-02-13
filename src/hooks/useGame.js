@@ -112,6 +112,10 @@ export function useGame() {
       setWinner('computer');
       setGameState('finished');
       setMessage('电脑获胜！');
+      // 计分
+      const isLandlord = landlord === 'computer';
+      const addScore = isLandlord ? 2 : 1;
+      setRoundScores({ player: -addScore, computer: addScore });
       return;
     }
 
@@ -140,6 +144,10 @@ export function useGame() {
       setWinner('computer');
       setGameState('finished');
       setMessage('电脑获胜！');
+      // 计分
+      const isLandlord = landlord === 'computer';
+      const addScore = isLandlord ? 2 : 1;
+      setRoundScores({ player: -addScore, computer: addScore });
       return;
     }
     
@@ -177,6 +185,10 @@ export function useGame() {
       setWinner('player');
       setGameState('finished');
       setMessage('你获胜！');
+      // 计分：地主赢 +2分，非地主赢 +1分
+      const isLandlord = landlord === 'player';
+      const addScore = isLandlord ? 2 : 1;
+      setRoundScores({ player: addScore, computer: -addScore });
       return;
     }
 

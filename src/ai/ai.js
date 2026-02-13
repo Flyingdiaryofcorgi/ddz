@@ -124,29 +124,29 @@ function groupByValue(cards) {
 
 // AI决策
 export function makeAIDecision(hand, lastCards, isLandlord, score, opponentScore) {
-  const validPlays = findValidPlays(hand, lastCards);
-  
-  // 如果没有上次出牌（首次出牌），选择最优策略
-  if (lastCards.length === 0) {
-    return selectBestFirstPlay(hand, isLandlord);
+  // 如果有上家的出牌，AI必须压制
+  if (lastCards.length > 0) {
+    const allPlays = findAllPossiblePlays(hand);
+    const beatingPlays = allPlays.filter(play => canBeat(play.cards, lastCards));
+    
+    if (beatingPlays.length > 0) {
+      // 选择最小的能压制的牌（贪心策略，节省大牌）
+      const selected = beatingPlays.reduce((min, current) => {
+        if (min.cards.length === 0) return current;
+        const minValue = Math.min(...min.cards.map(c => c.value));
+        const currentValue = Math.min(...current.cards.map(c => c.value));
+        return currentValue < minValue ? current : min;
+      });
+      
+      return { action: 'play', cards: selected.cards };
+    } else {
+      // 无法压制，只能 pass
+      return { action: 'pass', cards: [] };
+    }
   }
   
-  // 优先出最小的能压制的牌
-  const beatingPlays = validPlays.filter(play => play.cards.length > 0 && canBeat(play.cards, lastCards));
-  
-  if (beatingPlays.length === 0) {
-    return { action: 'pass', cards: [] };
-  }
-  
-  // 选择最小的能压制的牌（贪心策略）
-  const selected = beatingPlays.reduce((min, current) => {
-    if (min.cards.length === 0) return current;
-    const minValue = Math.min(...min.cards.map(c => c.value));
-    const currentValue = Math.min(...current.cards.map(c => c.value));
-    return currentValue < minValue ? current : min;
-  });
-  
-  return { action: 'play', cards: selected.cards };
+  // 首次出牌，选择最优策略
+  return selectBestFirstPlay(hand, isLandlord);
 }
 
 // 首次出牌策略
